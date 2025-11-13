@@ -36,36 +36,20 @@
         <header>
         <nav class="navbar navbar-expand-lg" style="background-color: #10193b;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img src="{{ asset('images/logo/phototalelogo.png') }}" style="width:3em; height:3em;"></a>
+                <a class="navbar-brand" href="#"><img src="" style="width:3em; height:3em;"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('postuser.index') }}" style="color: #e7f2ef;">Home</a>
+                            <a class="nav-link" href="" style="color: #e7f2ef;">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('post.create') }}" style="color: #e7f2ef;">Photo</a>
+                            <a class="nav-link" href="" style="color: #e7f2ef;">Photo</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" style="color: #e7f2ef;">Tale</a>
-                        </li>
-                        <li class="nav-item">
-                            @if (!session()->has('user'))
-                                <a class="nav-link" href="{{ route('postuser.login') }}" style="color: #e7f2ef;">Welcome! Guess.</a>
-                            @else
-                                <a class="nav-link" href="{{ route('postuser.profile', [session('user')->slug]) }}" style="color: #e7f2ef;">Welcome! {{ session('user')->fullname }}.</a>
-                            @endif
-                            
-                        </li>
-                        <li class="nav-item">
-                            @if (!session()->has('user'))
-                                <a class="nav-link" href="{{ route('postuser.login') }}" style="color: #e7f2ef;">Login/Registration</a>
-                            @else
-                                <a class="nav-link" href="{{ route('postuser.logout') }}" style="color: #e7f2ef;">Logout</a>
-                            @endif
-                            
                         </li>
                     </ul>
                 </div>

@@ -14,7 +14,8 @@ Route::get('/', [PuserController::class, 'index'])->name('pusers.index');
 Route::get('/pusers/create', [PuserController::class, 'create'])->name('pusers.create');
 Route::post('/pusers/store', [PuserController::class, 'store'])->name('pusers.store');
 
-// Route::get('/otp/send', [OtpController::class, 'sendOtpForm'])->name('otp.send');
+Route::get('/otp/create', [OtpController::class, 'sendOtpForm'])->name('otp.create');
 Route::post('/otp/send', [OtpController::class, 'sendOtp'])->name('otp.send');
 // Route::get('/otp/verify', [OtpController::class, 'verifyOtpForm'])->name('otp.verify');
 Route::post('/otp/verify', [OtpController::class, 'verifyOtp'])->name('otp.verify');
+Route::get('/otp/resend', [OtpController::class, 'resendOtp'])->name('otp.resend');

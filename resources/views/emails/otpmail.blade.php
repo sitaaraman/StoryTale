@@ -1,16 +1,16 @@
-@component('mail::message')
-# Hello {{ $mailOtpSend['username'] }},
+@section('content')
+<h2>{{ $mailOtpSend['title'] }}</h2>
 
-We received your registration request.  
-Please use the OTP below to verify your email address:
+    <p>Hi <strong>{{ $mailOtpSend['username'] }}</strong>,</p>
 
-@component('mail::panel')
-**Your OTP:** {{ $mailOtpSend['otp'] }}
-@endcomponent
+    <p>Your OTP for email verification is:</p>
 
-This OTP will expire in **10 minutes**.  
-If you didn’t request this, you can safely ignore this email.
+    <h3 style="color: #2c3e50;">{{ $mailOtpSend['otp'] }}</h3>
 
-Thanks,  
-**{{ config('app.name') }}** Team
-@endcomponent
+    <p>This OTP will expire in 10 minutes.</p>
+
+    <br>
+    <p>Thank you,<br><strong>StoryTale Team</strong></p>
+
+@endsection
+

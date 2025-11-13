@@ -47,9 +47,11 @@ class PuserController extends Controller
         }
         $puser['slug'] = \Str::slug($request->fullname, '-');
 
+        
         session(['pending_puser' => $puser]);
+        // dd($puser);
 
-        return redirect()->route('otp.send')->with('success', 'Please verify your email to complete registration.');
+        return redirect()->route('otp.create')->with('success', 'Please verify your email to complete registration.');
     }
 
     public function show($id)

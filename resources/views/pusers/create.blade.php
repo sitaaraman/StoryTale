@@ -5,12 +5,12 @@
 @section('content')
 <div class="container mt-5">
 
-    {{-- ✅ If OTP is not sent yet, show registration form --}}
+    {{-- ✅ If OTP is not sent yet, show registration form @if(!session('pending_puser'))@endif --}}
 
-    @if(!session('pending_puser'))
+    
     <h3 class="mb-4">Register New Account</h3>
 
-    <form action="{{ route('pusers.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('otp.create') }}" method="GET" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -33,8 +33,8 @@
 
         <div class="mb-3">
             <label>Gender</label><br>
-            <label><input type="radio" name="gender" value="male"> Male</label>
-            <label class="ms-3"><input type="radio" name="gender" value="female"> Female</label>
+            <label><input type="radio" name="gender" value="male" {{ old('gender') == 'male'?'checked':'' }}> Male</label>
+            <label class="ms-3"><input type="radio" name="gender" value="female" {{ old('gender') == 'female'?'checked':'' }}> Female</label>
             <label class="ms-3"><input type="radio" name="gender" value="other" {{ old('gender') == 'other'?'checked':'' }}> Other</label>
             @error('gender') <div class="text-danger">{{ $message }}</div> @enderror
         </div>
@@ -65,31 +65,13 @@
         <div class="mb-3">
             <label>Confirm Password</label>
             <input type="password" name="password_confirmation" class="form-control">
-            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+            @error('password_confirmation') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Register</button>
     </form>
-
-    @else
-    {{-- ✅ OTP Verification Form --}}
-    <h3 class="mb-4">Verify Your Email</h3>
-    <p class="text-muted">An OTP has been sent to your registered email address. Please enter it below to verify your account.</p>
-
-    @if(session('status'))
-        <div class="alert alert-success">{{ session('status') }}</div>
-    @endif
-
-    <form action="{{ route('otp.verify') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label>Enter OTP</label>
-            <input type="text" name="otp" class="form-control" placeholder="6-digit OTP">
-            @error('otp') <span class="text-danger">{{ $message }}</span> @enderror
-        </div>
-        <button type="submit" class="btn btn-success w-100">Verify OTP</button>
-    </form>
-    @endif
+    
+    
 
 </div>
 @endsection
