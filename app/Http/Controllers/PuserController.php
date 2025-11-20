@@ -68,20 +68,53 @@ class PuserController extends Controller
         return redirect()->route('otp.create')->with('success', 'Please verify your email to complete registration.');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $puser = Puser::where('slug', $slug)->firstOrFail();
+        return view('pusers.show', compact('puser'));
     }
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $puser = Puser::where('slug', $slug)->firstOrFail();
+        return view('pusers.edit', compact('puser'));
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
+        $request->validate([
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'gender' => 'required|in:male,female,other',
+            'dateofbirth' => 'nullable|date',
+            'phone_number' => 'required|string|max:15',
+            'profile' => 'nullable|image|max:2048',
+            'password' => 'required|string|min:4|confirmed',
+        ]);
 
+        $puser = Puser::where('slug', $slug)->firstOrFail();
+        $puserData = $request->only(['fullname', 'email', 'gender', 'dateofbirth', 'phone_number', 'password']);
+        // $puser->fullname = $request->fullname;
+        // $puser->email = $request->email;
+        // $puser->gender = $request->gender;
+        // $puser->dateofbirth = $request->dateofbirth;
+        // $puser->phone_number = $request->phone_number;
+        // $puser->password = $request->password; // Retain existing password
+        $puser->slug = \Str::slug($request->fullname, '-');
+        // Handle profile upload
+        if ($request->hasFile('profile')) {
+            $profile = $request->file('profile');
+            $profileName = time() . '_' . $request->file('profile')->getClientOriginalName();
+            $profile->move(public_path('uploads/profiles/'), $profileName);
+            // $puser->profile = $profileName;
+            $puserData['profile'] = $profileName;
+        }
+        $puser->update($puserData);
+        return redirect()->route('pusers.show', $puser->slug)->with('success', 'Profile updated successfully.');
     }
-    public function destroy($id)
+
+    public function destroy($slug)
     {
-        //
+        $puser = Puser::where('slug', $slug)->firstOrFail();
+        $puser->delete();
+        return redirect()->route('pusers.index')->with('success', 'User deleted successfully.');
     }
 }

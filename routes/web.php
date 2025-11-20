@@ -13,6 +13,10 @@ use App\Http\Controllers\OtpController;
 Route::get('/', [PuserController::class, 'index'])->name('pusers.index');
 Route::get('/pusers/create', [PuserController::class, 'create'])->name('pusers.create');
 Route::post('/pusers/store', [PuserController::class, 'store'])->name('pusers.store');
+Route::get('/pusers/{slug}', [PuserController::class, 'show'])->name('pusers.show');
+Route::get('/pusers/edit/{slug}', [PuserController::class, 'edit'])->name('pusers.edit');
+Route::put('/pusers/update/{slug}', [PuserController::class, 'update'])->name('pusers.update');
+Route::delete('/pusers/delete/{slug}', [PuserController::class, 'destroy'])->name('pusers.destroy');
 
 Route::get('/otp/create', [OtpController::class, 'sendOtpForm'])->name('otp.create');
 Route::post('/otp/send', [OtpController::class, 'sendOtp'])->name('otp.send');
