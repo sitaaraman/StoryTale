@@ -17,23 +17,23 @@ class OtpController extends Controller
         return view('pusers.otp');
     }
 
-    public function sendOtp(Request $request)
-    {
-        // $puserData = session('pending_puser');
-        $otp = rand(100000, 999999);
-        session(['otp' => $otp ,'otp_expires' => now()->addMinutes(5)]);
+    // public function sendOtp($puserData)
+    // {
+    //     $otp = rand(100000, 999999);
+    //     session(['otp' => $otp ,'otp_expires' => now()->addMinutes(5)]);
+        
+    //     $mailOtpSend = [
+    //         'title' => 'Email Verification OTP',
+    //         'username' => $puserData['username'],
+    //         'otp' => $otp,
+    //     ];
+    //     // $puserData = session('pending_puser');
 
-        $mailOtpSend = [
-            'title' => 'Email Verification OTP',
-            'username' => $puserData['username'],
-            'otp' => $otp,
-        ];
+    //     Mail::to($puserData['email'])->send(new OtpMail($mailOtpSend));
 
-        Mail::to($puserData['email'])->send(new OtpMail($mailOtpSend));
-
-        return redirect()->route('otp.verify')->with('success', 'OTP has been sent. Please verify.');
-    }
-
+    //     return redirect()->route('otp.create')->with('success', 'OTP has been sent. Please verify.');
+    // }
+    
 
     public function verifyOtp(Request $request)
     {
@@ -70,21 +70,24 @@ class OtpController extends Controller
     {
         $puserData = session('pending_puser');
 
-        $otp = rand(100000, 999999);
-        session([
-            'otp' => $otp,
-            'otp_expires' => now()->addMinutes(5)
-        ]);
+        // $otp = rand(100000, 999999);
+        // session([
+        //     'otp' => $otp,
+        //     'otp_expires' => now()->addMinutes(5)
+        // ]);
 
-        // Prepare mail data
-        $mailOtpSend = [
-            'title' => 'Resend OTP Verification',
-            'username' => $puserData['username'],
-            'otp' => $otp,
-        ];
+        // // Prepare mail data
+        // $mailOtpSend = [
+        //     'title' => 'Resend OTP Verification',
+        //     'username' => $puserData['username'],
+        //     'otp' => $otp,
+        // ];
 
-        // Send OTP email
-        Mail::to($puserData['email'])->send(new OtpMail($mailOtpSend));
+        // // Send OTP email
+        // Mail::to($puserData['email'])->send(new OtpMail($mailOtpSend));
+
+        // $this->sendOtp(new Request());
+        $this->sendOtp($puserData);
 
         return redirect()->back()->with('success', 'A new OTP has been sent to your email.');
     }

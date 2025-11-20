@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Puser;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OtpMail;
+use Carbon\Carbon;
 
 class PuserController extends Controller
 {
@@ -47,9 +50,20 @@ class PuserController extends Controller
         }
         $puser['slug'] = \Str::slug($request->fullname, '-');
 
-        
         session(['pending_puser' => $puser]);
         // dd($puser);
+
+        $otp = rand(100000, 999999);
+        session(['otp' => $otp ,'otp_expires' => now()->addMinutes(5)]);
+        
+        $mailOtpSend = [
+            'title' => 'Email Verification OTP',
+            'username' => $puser['username'],
+            'otp' => $otp,
+        ];
+        // $puserData = session('pending_puser');
+
+        Mail::to($puser['email'])->send(new OtpMail($mailOtpSend));
 
         return redirect()->route('otp.create')->with('success', 'Please verify your email to complete registration.');
     }

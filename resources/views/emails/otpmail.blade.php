@@ -1,5 +1,5 @@
 
-<h2>{{ $mailOtpSend['title'] }}</h2>
+    <h2>{{ $mailOtpSend['title'] }}</h2>
 
     <p>Hi <strong>{{ $mailOtpSend['username'] }}</strong>,</p>
 
