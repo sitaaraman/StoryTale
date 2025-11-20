@@ -10,7 +10,7 @@
     
     <h3 class="mb-4">Register New Account</h3>
 
-    <form action="{{ route('otp.create') }}" method="GET" enctype="multipart/form-data">
+    <form action="{{ route('pusers.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">

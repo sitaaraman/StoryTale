@@ -18,4 +18,4 @@ Route::get('/otp/create', [OtpController::class, 'sendOtpForm'])->name('otp.crea
 Route::post('/otp/send', [OtpController::class, 'sendOtp'])->name('otp.send');
 // Route::get('/otp/verify', [OtpController::class, 'verifyOtpForm'])->name('otp.verify');
 Route::post('/otp/verify', [OtpController::class, 'verifyOtp'])->name('otp.verify');
-Route::get('/otp/resend', [OtpController::class, 'resendOtp'])->name('otp.resend');
+Route::post('/otp/resend', [OtpController::class, 'resendOtp'])->name('otp.resend');

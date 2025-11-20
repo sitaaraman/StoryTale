@@ -11,15 +11,17 @@ use Carbon\Carbon;
 class OtpController extends Controller
 {
     
-    public function sendOtp(Request $request)
+    public function sendOtpForm()
     {
         $puserData = session('pending_puser');
-        // Logic to send OTP to the user's email or phone number
-        // You can use a package like Twilio for SMS or a mail service for email
+        return view('pusers.otp');
+    }
 
-        // For demonstration, we'll just simulate sending an OTP
+    public function sendOtp(Request $request)
+    {
+        // $puserData = session('pending_puser');
         $otp = rand(100000, 999999);
-        session(['otp' => $otp ,'otp_expires' => now()->addMinutes(1)]);
+        session(['otp' => $otp ,'otp_expires' => now()->addMinutes(5)]);
 
         $mailOtpSend = [
             'title' => 'Email Verification OTP',
@@ -27,16 +29,11 @@ class OtpController extends Controller
             'otp' => $otp,
         ];
 
-        // In a real application, send the OTP via email/SMS here
         Mail::to($puserData['email'])->send(new OtpMail($mailOtpSend));
 
         return redirect()->route('otp.verify')->with('success', 'OTP has been sent. Please verify.');
     }
 
-    public function sendOtpForm()
-    {
-        return view('pusers.otp');
-    }
 
     public function verifyOtp(Request $request)
     {
@@ -73,15 +70,10 @@ class OtpController extends Controller
     {
         $puserData = session('pending_puser');
 
-        if (!$puserData) {
-            return redirect()->route('pusers.index')->with('error', 'No pending registration found.');
-        }
-
-        // Generate new OTP
         $otp = rand(100000, 999999);
         session([
             'otp' => $otp,
-            'otp_expires' => now()->addMinutes(1)
+            'otp_expires' => now()->addMinutes(5)
         ]);
 
         // Prepare mail data
@@ -94,7 +86,7 @@ class OtpController extends Controller
         // Send OTP email
         Mail::to($puserData['email'])->send(new OtpMail($mailOtpSend));
 
-        return redirect()->route('otp.verify')->with('success', 'A new OTP has been sent to your email.');
+        return redirect()->back()->with('success', 'A new OTP has been sent to your email.');
     }
 
 }

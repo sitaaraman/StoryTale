@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container p-5">
 
     <h3 class="mb-4">Verify Your Email</h3>
     <p class="text-muted">
@@ -34,7 +34,8 @@
     </form>
 
     {{-- Resend OTP --}}
-    <form action="{{ route('otp.resend') }}" method="GET">
+    <form action="{{ route('otp.resend') }}" method="POST">
+        @csrf 
         <button type="submit" class="btn btn-secondary w-100">Resend OTP</button>
     </form>
 
