@@ -36,20 +36,20 @@
         <header>
         <nav class="navbar navbar-expand-lg" style="background-color: #10193b;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img src="" style="width:3em; height:3em;"></a>
+                <a class="navbar-brand" href="#"><img src="{{ asset('img/logophototale.png') }}" style="width:3em; height:3em;"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon" style="color: #fff"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="" style="color: #e7f2ef;">Home</a>
+                            <a class="nav-link" href="{{ route('pusers.index') }}" style="color: #e7f2ef;">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="" style="color: #e7f2ef;">Photo</a>
+                            <a class="nav-link" href="{{ route('pusers.create') }}" style="color: #fdfdfd;">Photo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color: #e7f2ef;">Tale</a>
+                            <a class="nav-link" href="{{ route('pusers.index') }}" style="color: #e7f2ef;">Tale</a>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +57,7 @@
         </nav>
     </header>
 
-    <main class="bg-warning-subtle mh-100">
+    <main class="bg-warning-subtle" style="min-height: 80vh;">
         @yield('content')
     </main>
 

@@ -3,7 +3,7 @@
 @section('title' , 'Register')
 
 @section('content')
-<div class="container mt-5">
+<div class="container p-5">
 
     {{-- ✅ If OTP is not sent yet, show registration form @if(!session('pending_puser'))@endif --}}
 
